@@ -6,11 +6,12 @@
    [om.next.server :as om]
    [ring.util.response :refer [resource-response]]
    [backend.middleware :refer [wrap-transit-params
-                               wrap-transit-response]]))
+                               wrap-transit-response]]
+   [ring-aws-lambda-adapter.core :refer [defhandler]]))
 
 (defmulti read-server om/dispatch)
 
-(defmethod read-server :example-remote
+(defmethod read-server :app/remote
   [env dispatch-key params]
   {:value {:greeting "Hello from the backend with some transit love."}})
 
@@ -33,10 +34,9 @@
   (GET "/:all" []  (resource-response "index.html" {:root "public"}))
   (route/not-found "404 Page not found!"))
 
-
 (def handler
   (-> main-routes
       wrap-transit-params
       wrap-transit-response))
 
-
+(defhandler club.meidai-sumo.OmNextHandler handler {})

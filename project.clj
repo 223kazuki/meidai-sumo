@@ -5,7 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[org.clojure/clojure "1.9.0-alpha14"]
-                 [org.clojure/clojurescript "1.9.494"]
+                 [org.clojure/clojurescript "1.9.293"]
                  [com.cognitect/transit-clj "0.8.285"]
                  [com.cognitect/transit-cljs "0.8.239"]
                  [ring "1.5.0"]
@@ -15,7 +15,8 @@
                  [com.stuartsierra/component "0.3.1"]
                  [com.cemerick/piggieback "0.2.1"]
                  [secretary "1.2.3"]
-                 [venantius/accountant "0.1.9"]]
+                 [venantius/accountant "0.1.9"]
+                 [ring-aws-lambda-adapter "0.1.1"]]
 
   :plugins [[lein-cljsbuild "1.1.4"]
             [lein-figwheel "0.5.4-7"]

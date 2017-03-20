@@ -1,12 +1,11 @@
 (ns ui.core
-  (:require [om.next :as om :refer-macros [defui]]
-            [om.dom :as dom]
-            [ui.util :refer [transit-post]]
-            [goog.dom :as gdom]
-            [secretary.core :as sec :include-macros true]
+  (:require [secretary.core :as sec :include-macros true]
             [goog.events :as events]
             [goog.history.EventType :as EventType]
-            [accountant.core :as accountant])
+            [goog.dom :as gdom]
+            [om.next :as om :refer-macros [defui]]
+            [om.dom :as dom]
+            [ui.util :refer [transit-post]])
   (:import goog.History))
 
 (enable-console-print!)
@@ -24,7 +23,7 @@
   [{:keys [state] :as env} key params]
   {:value (get-in @state [:about])})
 
-(defmethod read :example-remote
+(defmethod read :app/remote
   [env k params]
   (let [st @(:state env)]
     {:remote true
@@ -32,23 +31,22 @@
 
 (def app-parser (om/parser {:read read}))
 
-(def reconciler
-  (om/reconciler {:state app-state
-                  :parser app-parser
-                  :send (transit-post "/api")}))
+(def reconciler (om/reconciler {:state app-state
+                                :parser app-parser
+                                :send (transit-post "/api")}))
 
 ;; HELPERS
 ;; =====================================
 (def navi
   (dom/ul nil
           (dom/li nil
-                  (dom/a #js {:href "/"} "Home"))
+                  (dom/a #js {:href "#/"} "Home"))
           (dom/li nil
-                  (dom/a #js {:href "/about"} "About"))
+                  (dom/a #js {:href "#/about"} "About"))
           (dom/li nil
-                  (dom/a #js {:href "/contact"} "Contact"))
+                  (dom/a #js {:href "#/contact"} "Contact"))
           (dom/li nil
-                  (dom/a #js {:href "/remote"} "Remote"))))
+                  (dom/a #js {:href "#/remote"} "Remote"))))
 
 ;; VIEWS
 ;; =====================================
@@ -69,13 +67,10 @@
           (dom/h1 nil "Welcome!")))
 
 (defui RemoteView
-  static om/IQuery
-  (query [this]
-    '[:example-remote])
   Object
   (render [this]
-    (let [{:keys [example-remote] :as props} (om/props this)]
-      (println (om/props this))
+    (let [{:keys [app/remote] :as props} (om/props this)]
+      (println props)
       (dom/div nil
                (dom/p nil "test")
                (dom/p nil props)))))
@@ -89,42 +84,13 @@
    :app/remote RemoteView})
 
 (defn build-component [props]
+  (println props)
   (let [component-key (first (keys props))]
     ((om/factory (query-key->view component-key)) (props component-key))))
 
-;; ROOT
-;; =====================================
-(defui App
-  static om/IQuery
-  (query [this]
-         '[:app/start])
-  Object
-  (render [this]
-          (let [props (om/props this)]
-            (dom/div nil
-                     navi
-                     (build-component props)))))
-
-(defn init! []
-  (accountant/configure-navigation!
-    {:nav-handler (fn [path] (sec/dispatch! path))
-     :path-exists? (fn [path] (sec/locate-route path))})
-  (om/add-root! reconciler App (gdom/getElement "app")))
-
-(init!)
-
-;; HISTORY
-;; =====================================
-(let [history (History.)
-      navigation EventType/NAVIGATE]
-  (goog.events/listen history
-                     navigation
-                     #(-> % .-token sec/dispatch!))
-  (doto history (.setEnabled true)))
-
 ;; ROUTES
 ;; =====================================
-(sec/set-config! :prefix "")
+(sec/set-config! :prefix "#")
 
 (defn set-root-query!
   ([query]
@@ -143,4 +109,26 @@
 (sec/defroute remote "/remote" []
   (set-root-query! '[:app/remote]))
 
-(accountant/dispatch-current!)
+;; ROOT
+;; =====================================
+(defui App
+  static om/IQuery
+  (query [this]
+         '[:app/start])
+  Object
+  (render [this]
+          (let [props (om/props this)]
+            (dom/div nil
+                     navi
+                     (build-component props)))))
+
+(om/add-root! reconciler App (gdom/getElement "app"))
+
+;; HISTORY
+;; =====================================
+(let [history (History.)
+      navigation EventType/NAVIGATE]
+  (goog.events/listen history
+                     navigation
+                     #(-> % .-token sec/dispatch!))
+  (doto history (.setEnabled true)))

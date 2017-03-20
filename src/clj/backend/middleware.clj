@@ -19,14 +19,14 @@
       [(not (empty? mtch)) (keyword (second mtch))])))
 
 (defn- read-transit [request {:keys [opts]}]
-  (let [[res t] (transit-request? request)]
-    (if res
+  ; (let [[res t] (transit-request? request)]
+  ;   (if res
       (if-let [body (:body request)]
         (let [rdr (om/reader body opts)]
           (try
             [true (transit/read rdr)]
             (catch Exception ex
-              [false nil])))))))
+              [false nil])))))
 
 (def ^{:doc "The default response to return when a Transit request is malformed."}
   default-malformed-response

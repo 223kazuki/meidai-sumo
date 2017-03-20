@@ -15,3 +15,12 @@ Assuming Cider+emacs development environment:
 * 6. Realize that the backend parser and handlers are located in _om-next-template/src/clj/backend/server.clj_
 * 7. For standalone jar, delete _om-next-template/resources/public/main.js_ and this directory _om-next-template/resources/public/out_, then do these two commands `lein cljsbuild once` (for advanced compilation) and then `lein ring uberjar`.
 
+### Memo
+
+```
+$ curl -XPOST localhost:8440/api -H "Content-Type: application/transit+json" -d '["~:app/remot"']'
+["^ ","~:app/remote",["^ ","~:greeting","Hello from the backend with some transit love."]]
+
+$ curl -XPOST https://ehppfctk3f.execute-api.ap-northeast-1.amazonaws.com/prod  -H "Content-Type: application/transit+json" -d '["~:app/remote"]'
+{"status":200,"headers":{"Content-Type":"application\/transit+json"},"body":["^ ","~:app\/remote",["^ ","~:greeting","Hello from the backend with some transit love."]]}
+```
