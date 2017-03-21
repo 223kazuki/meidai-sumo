@@ -13,3 +13,5 @@ pom.xml
 .repl
 .nrepl-port
 .sass-cache
+/resources/public/out/
+/resources/public/main.js
