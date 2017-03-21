@@ -18,7 +18,7 @@ Assuming Cider+emacs development environment:
 ### Memo
 
 ```
-$ curl -XPOST localhost:8440/api -H "Content-Type: application/transit+json" -d '["~:app/remot"']'
+$ curl -XPOST localhost:8440/api -H "Content-Type: application/transit+json" -d '["~:app/remote"']'
 ["^ ","~:app/remote",["^ ","~:greeting","Hello from the backend with some transit love."]]
 
 $ curl -XPOST https://ehppfctk3f.execute-api.ap-northeast-1.amazonaws.com/prod  -H "Content-Type: application/transit+json" -d '["~:app/remote"]'

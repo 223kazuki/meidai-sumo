@@ -33,7 +33,7 @@
 
 (def reconciler (om/reconciler {:state app-state
                                 :parser app-parser
-                                :send (transit-post "/api")}))
+                                :send (transit-post "https://ehppfctk3f.execute-api.ap-northeast-1.amazonaws.com/prod")}))
 
 ;; HELPERS
 ;; =====================================
@@ -70,7 +70,6 @@
   Object
   (render [this]
     (let [{:keys [app/remote] :as props} (om/props this)]
-      (println props)
       (dom/div nil
                (dom/p nil "test")
                (dom/p nil props)))))
@@ -84,9 +83,9 @@
    :app/remote RemoteView})
 
 (defn build-component [props]
-  (println props)
   (let [component-key (first (keys props))]
-    ((om/factory (query-key->view component-key)) (props component-key))))
+    (when component-key
+      ((om/factory (query-key->view component-key)) (props component-key)))))
 
 ;; ROUTES
 ;; =====================================
