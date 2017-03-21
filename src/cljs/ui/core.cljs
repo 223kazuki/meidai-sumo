@@ -23,17 +23,38 @@
    (let [root (om/app-root reconciler)]
      (om/set-query! root {:query query}))))
 
-(sec/defroute start "/" []
-  (set-root-query! '[:app/start]))
+(sec/defroute home "/" []
+  (set-root-query! '[:app/home]))
 
-(sec/defroute contact "/contact" []
-  (set-root-query! '[:app/contact]))
+(sec/defroute club "/club" []
+  (set-root-query! '[:app/club]))
 
-(sec/defroute about "/about" []
-  (set-root-query! '[:app/about]))
+(sec/defroute member "/member" []
+  (set-root-query! '[:app/member]))
 
-(sec/defroute remote "/remote" []
-  (set-root-query! '[:app/remote]))
+(sec/defroute record "/record" []
+  (set-root-query! '[:app/record]))
+
+(sec/defroute blog "/blog" []
+  (set-root-query! '[:app/blog]))
+
+(sec/defroute photo "/photo" []
+  (set-root-query! '[:app/photo]))
+
+(sec/defroute movie "/movie" []
+  (set-root-query! '[:app/movie]))
+
+(sec/defroute masumeidai "/masumeidai" []
+  (set-root-query! '[:app/masumeidai]))
+
+(sec/defroute media "/media" []
+  (set-root-query! '[:app/media]))
+
+(sec/defroute link "/link" []
+  (set-root-query! '[:app/link]))
+
+(sec/defroute mail "/mail" []
+  (set-root-query! '[:app/mail]))
 
 (om/add-root! reconciler App (gdom/getElement "app"))
 

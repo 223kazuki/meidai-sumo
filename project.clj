@@ -16,7 +16,9 @@
                  [com.cemerick/piggieback "0.2.1"]
                  [secretary "1.2.3"]
                  [venantius/accountant "0.1.9"]
-                 [ring-aws-lambda-adapter "0.1.1"]]
+                 [ring-aws-lambda-adapter "0.1.1"]
+                 [sablono "0.7.7"]
+                 [markdown-clj "0.9.98"]]
 
   :plugins [[lein-cljsbuild "1.1.4"]
             [lein-figwheel "0.5.4-7"]
