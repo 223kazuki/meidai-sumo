@@ -10,10 +10,19 @@
    [ring-aws-lambda-adapter.core :refer [defhandler]]))
 
 (defmulti read-server om/dispatch)
-
 (defmethod read-server :app/remote
   [env dispatch-key params]
   {:value {:greeting "Hello from the backend with some transit love."}})
+(defmethod read-server :app/member
+  [env dispatch-key params]
+  {:value {:members [{:member/id 1 :member/name "Kondo"}
+                     {:member/id 2 :member/name "Nohara"}
+                     {:member/id 3 :member/name "Tsutsumi"}]}})
+(defmethod read-server :app/redord
+  [env dispatch-key params]
+  {:value {:records [{:record/id 1 :record/year "2014"}
+                     {:record/id 2 :record/year "2015"}
+                     {:record/id 3 :record/year "2016"}]}})
 
 (defmulti mutate-server om/dispatch)
 
