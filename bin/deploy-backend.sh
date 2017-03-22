@@ -12,4 +12,4 @@ lein.bat do clean, uberjar
 # --memory-size 512
 aws --profile meidai-sumo lambda update-function-code \
 --function-name meidai-sumo-backend \
---zip-file fileb://`dirname $0`/../target/om-next-template-v0.0.0-standalone.jar
+--zip-file fileb://`dirname $0`/../target/meidai-sumo.jar

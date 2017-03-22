@@ -1,26 +1,43 @@
-# Om next template
+# 名古屋大学相撲部ホームページ
 
-Ready to be exploited for:
-  - SCSS hot reload.
-  - Transit based remote sync.
-  - Extensible Compojure routing.
+## 構成
 
-### Quick start
+* om-next
+* AWS 上で動かすために、 frontend を S3, backend を Lambda + API Gateway で動かす
+
+## AWS 構成
+
+| Service             | 備考 |
+| ------------------- | ------------ |
+| S3                  | フロントエンドホスティング |
+| Route53             |  |
+| Certificate Manager |  |
+| CoundFront          | フロントエンド SSL 対応用 |
+| API Gateway         | バックエンドホスティング (Lambda 呼び出し) |
+| Lambda              | ring-aws-lambda-adapter により ring handler を呼び出す |
+| SES                 | 問い合わせ処理用 |
+| DynamoDB            | 問い合わせ処理用 |
+
+## Quick start
+
 Assuming Cider+emacs development environment:
-* 1. After cloneing/downloading. Open _om-next-template/src/cljs/ui/core.cljs_
-* 2. *M-x* cider-jack-in-clojurescript
-* 3. In the clj-repl type `(load-file "script/figwheel.clj")` to start figwheel
-* 4. Open http://localhost:8440
-* 5. Add css/scss styling in  _om-next-template/scss/style.scss_ (must have scss installed, do so with `sudo npm install -g node-sass`, read more about the SCSS figwheel script here https://github.com/bhauman/lein-figwheel/wiki/SASS-watcher)
-* 6. Realize that the backend parser and handlers are located in _om-next-template/src/clj/backend/server.clj_
-* 7. For standalone jar, delete _om-next-template/resources/public/main.js_ and this directory _om-next-template/resources/public/out_, then do these two commands `lein cljsbuild once` (for advanced compilation) and then `lein ring uberjar`.
 
-### Memo
+1. After cloneing/downloading. Open _meidai-sumo/src/cljs/ui/core.cljs_
+2. In the clj-repl type `(load-file "script/figwheel.clj")` to start figwheel
+3. Open http://localhost:8440
+4. Add css/scss styling in  _meidai-sumo/scss/style.scss_ (must have scss installed, do so with `sudo npm install -g node-sass`, read more out the SCSS figwheel script here https://github.com/bhauman/lein-figwheel/wiki/SASS-watcher)
+
+## Memo
+
+### AWS 上での動作確認
 
 ```
-$ curl -XPOST localhost:8440/api -H "Content-Type: application/transit+json" -d '["~:app/remote"']'
-["^ ","~:app/remote",["^ ","~:greeting","Hello from the backend with some transit love."]]
-
-$ curl -XPOST https://ehppfctk3f.execute-api.ap-northeast-1.amazonaws.com/prod  -H "Content-Type: application/transit+json" -d '["~:app/remote"]'
-{"status":200,"headers":{"Content-Type":"application\/transit+json"},"body":["^ ","~:app\/remote",["^ ","~:greeting","Hello from the backend with some transit love."]]}
+$ curl -XPOST localhost:8440/api -H "Content-Type: application/transit+json" -d '["~:app/member"']'
+$ curl -XPOST https://api.meidai-sumo.club  -H "Content-Type: application/transit+json" -d '["~:app/member"]'
 ```
+
+### CloudFront キャッシュ削除
+
+1. CloudFront の [Invalidation] タブから [Create Invalidation] ボタン
+2. "/*" を指定して [Invalidate]
+

@@ -10,9 +10,13 @@
             [ui.view.common :refer [App]])
   (:import goog.History))
 
+(def api-endpoint (.. js/document
+                      (querySelector "meta[name=api-endpoint]")
+                      (getAttribute "content")))
+
 (def reconciler (om/reconciler {:state app-state
                                 :parser app-parser
-                                :send (transit-post "/api")}))
+                                :send (transit-post api-endpoint)}))
 
 ;; ROUTES
 ;; =====================================
