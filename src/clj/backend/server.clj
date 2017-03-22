@@ -1,13 +1,13 @@
 (ns backend.server
   (:gen-class)
-  (:require
-   [compojure.core :refer [GET POST defroutes]]
-   [compojure.route :as route]
-   [om.next.server :as om]
-   [ring.util.response :refer [resource-response]]
-   [backend.middleware :refer [wrap-transit-params
-                               wrap-transit-response]]
-   [ring-aws-lambda-adapter.core :refer [defhandler]]))
+  (:require [compojure.core :refer [GET POST defroutes]]
+            [compojure.route :as route]
+            [om.next.server :as om]
+            [ring.util.response :refer [resource-response content-type]]
+            [backend.middleware :refer [wrap-transit-params
+                                        wrap-transit-response]]
+            [ring-aws-lambda-adapter.core :refer [defhandler]]
+            [net.cgrand.enlive-html :as html :refer [deftemplate]]))
 
 (defmulti read-server om/dispatch)
 (defmethod read-server :app/remote
@@ -35,12 +35,16 @@
    :headers {"Content-Type" "application/transit+json"}
    :body    data})
 
+(deftemplate index "index.html"
+  []
+  [:head [:meta (html/attr-has :name "api-endpoint")]]
+  (html/set-attr :content "/api"))
+
 (defroutes main-routes
   (POST "/api" request (generate-transit-response
-                        (server-parser {} (:transit-params request))))
+                         (server-parser {} (:transit-params request))))
   (route/files "/" {:root "public"})
-  (route/resources "/")
-  (GET "/" [] (resource-response "index.html" {:root "public"}))
+  (GET "/" [] (apply str (index)))
   (route/not-found "404 Page not found!"))
 
 (def handler
