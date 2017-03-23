@@ -2,8 +2,6 @@
  '[figwheel-sidecar.repl-api :as ra]
  '[com.stuartsierra.component :as component]
  '[backend.server])
-
-
 (import 'java.lang.Runtime)
 
 (def figwheel-config
@@ -67,11 +65,9 @@
   (stop)
   (start))
 
-(defn repl []
+(defn cljs-repl []
   (ra/cljs-repl))
 
 ;; Start the components and the repl
 (start)
-(repl)
-
-
+; (cljs-repl)
