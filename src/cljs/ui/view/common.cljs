@@ -3,7 +3,7 @@
             [om.dom :as dom]
             [sablono.core :refer-macros [html]]))
 
-(def menu 
+(def menu
   [{:name "Home" :link "#/"}
    {:name "Club" :link "#/club"}
    {:name "Member" :link "#/member"}
@@ -21,7 +21,14 @@
   (render [this]
           (let [{:keys [] :as props} (om/props this)]
             (html
-              [:div [:h1 "Home"]]))))
+              [:div#home
+               [:div.jumbotron
+                [:h1 "名古屋大学相撲部"]
+                [:p "Nagoya University Sumo Club"]
+                [:p.lead
+                 [:a.btn.btn-primary.btn-lg {:href "https://twitter.com/nu_sumo" :role "button"} "Twitter"]]
+                [:p.lead
+                 [:a.btn.btn-primary.btn-lg {:href "https://www.facebook.com/NUSUMOCLUB/" :role "button"} "Facebook"]]]]))))
 
 (defui ClubView
   Object
@@ -126,27 +133,33 @@
           (let [props (om/props this)
                 component-key (first (keys props))]
             (html
-              [:div
-                [:nav.navbar.navbar-default.navbar-fixed-top
-                  [:div.container
-                    [:div.navbar-header
-                      [:button.navbar-toggle.collapsed {:type "button" :data-toggle "collapse" :data-target "#collapse-1" :aria-expanded "false"}
-                        [:span.sr-only "Toggle navigation"]
-                        [:span.icon-bar]
-                        [:span.icon-bar]
-                        [:span.icon-bar]]
-                      [:a.navbar-brand {:href "#"} "名大相撲部"]]
-                    [:div.collapse.navbar-collapse {:id "collapse-1"}
-                      [:ul.nav.navbar-nav
-                        [:li (when (= component-key :app/home) {:class "active"}) [:a {:href "#/"} "Home"]]
-                        [:li (when (= component-key :app/club) {:class "active"}) [:a {:href "#/club"} "Club"]]
-                        [:li (when (= component-key :app/member) {:class "active"}) [:a {:href "#/member"} "Member"]]
-                        [:li (when (= component-key :app/record) {:class "active"}) [:a {:href "#/record"} "Record"]]
-                        [:li (when (= component-key :app/blog) {:class "active"}) [:a {:href "#/blog"} "Blog"]]
-                        [:li (when (= component-key :app/photo) {:class "active"}) [:a {:href "#/photo"} "Photo"]]
-                        [:li (when (= component-key :app/movie) {:class "active"}) [:a {:href "#/movie"} "Movie"]]
-                        [:li (when (= component-key :app/masumeidai) {:class "active"}) [:a {:href "#/masumeidai"} "舛名大"]]
-                        [:li (when (= component-key :app/media) {:class "active"}) [:a {:href "#/media"} "Media"]]
-                        [:li (when (= component-key :app/link) {:class "active"}) [:a {:href "#/link"} "Link"]]
-                        [:li (when (= component-key :app/mail) {:class "active"}) [:a {:href "#/mail"} "Mail"]]]]]]
-                (build-component props)]))))
+              [:div.container
+               [:nav.navbar.navbar-default.navbar-fixed-top
+                [:div.container
+                 [:div.navbar-header
+                  [:button.navbar-toggle.collapsed {:type "button" :data-toggle "collapse" :data-target "#collapse-1" :aria-expanded "false"}
+                   [:span.sr-only "Toggle navigation"]
+                   [:span.icon-bar]
+                   [:span.icon-bar]
+                   [:span.icon-bar]]
+                  [:a.navbar-brand {:href "#"} "名大相撲部"]]
+                 [:div.collapse.navbar-collapse {:id "collapse-1"}
+                  [:ul.nav.navbar-nav
+                   [:li (when (= component-key :app/home) {:class "active"}) [:a {:href "#/"} "Home"]]
+                   [:li (when (= component-key :app/club) {:class "active"}) [:a {:href "#/club"} "Club"]]
+                   [:li (when (= component-key :app/member) {:class "active"}) [:a {:href "#/member"} "Member"]]
+                   [:li (when (= component-key :app/record) {:class "active"}) [:a {:href "#/record"} "Record"]]
+                   [:li (when (= component-key :app/blog) {:class "active"}) [:a {:href "#/blog"} "Blog"]]
+                   [:li (when (= component-key :app/photo) {:class "active"}) [:a {:href "#/photo"} "Photo"]]
+                   [:li (when (= component-key :app/movie) {:class "active"}) [:a {:href "#/movie"} "Movie"]]
+                   [:li (when (= component-key :app/masumeidai) {:class "active"}) [:a {:href "#/masumeidai"} "舛名大"]]
+                   [:li (when (= component-key :app/media) {:class "active"}) [:a {:href "#/media"} "Media"]]
+                   [:li (when (= component-key :app/link) {:class "active"}) [:a {:href "#/link"} "Link"]]
+                   [:li (when (= component-key :app/mail) {:class "active"}) [:a {:href "#/mail"} "Mail"]]]]]]
+               [:div.row
+                [:div.hidden-xs.col-md-2]
+                [:div.col-xs-12.col-md-8#content
+                 (build-component props)
+                 [:footer
+                  [:small "Copyright 2017-2022 Nagoya University Sumo Club. All Rights Reserved."]]]
+                [:div.hidden-xs.col-md-2]]]))))
