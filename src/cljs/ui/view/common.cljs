@@ -1,7 +1,9 @@
 (ns ui.view.common
   (:require [om.next :as om :refer-macros [defui]]
             [om.dom :as dom]
-            [sablono.core :refer-macros [html]]))
+            [sablono.core :refer-macros [html]]
+            [cljsjs.react-bootstrap]
+            [secretary.core :as sec]))
 
 (def menu
   [{:name "Home" :link "#/"}
@@ -124,6 +126,16 @@
     (when component-key
       ((om/factory (query-key->view component-key)) (props component-key)))))
 
+(defn navbar [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Navbar") (clj->js props) children))
+(defn navbarHeader [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Navbar" "Header") (clj->js props) children))
+(defn navbarBrand [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Navbar" "Brand") (clj->js props) children))
+(defn navbarCollapse [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Navbar" "Collapse") (clj->js props) children))
+(defn navbarToggle [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Navbar" "Toggle") (clj->js props) children))
+(defn nav [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Nav") (clj->js props) children))
+(defn navItem [props & children] (apply js/React.createElement (aget js/ReactBootstrap "NavItem") (clj->js props) children))
+(defn navDropdown [props & children] (apply js/React.createElement (aget js/ReactBootstrap "NavDropdown") (clj->js props) children))
+(defn menuItem [props & children] (apply js/React.createElement (aget js/ReactBootstrap "MenuItem") (clj->js props) children))
+
 (defui App
   static om/IQuery
   (query [this]
@@ -134,28 +146,23 @@
                 component-key (first (keys props))]
             (html
               [:div.container
-               [:nav.navbar.navbar-default.navbar-fixed-top
-                [:div.container
-                 [:div.navbar-header
-                  [:button.navbar-toggle.collapsed {:type "button" :data-toggle "collapse" :data-target "#collapse-1" :aria-expanded "false"}
-                   [:span.sr-only "Toggle navigation"]
-                   [:span.icon-bar]
-                   [:span.icon-bar]
-                   [:span.icon-bar]]
-                  [:a.navbar-brand {:href "#"} "名大相撲部"]]
-                 [:div.collapse.navbar-collapse {:id "collapse-1"}
-                  [:ul.nav.navbar-nav
-                   [:li (when (= component-key :app/home) {:class "active"}) [:a {:href "#/"} "Home"]]
-                   [:li (when (= component-key :app/club) {:class "active"}) [:a {:href "#/club"} "Club"]]
-                   [:li (when (= component-key :app/member) {:class "active"}) [:a {:href "#/member"} "Member"]]
-                   [:li (when (= component-key :app/record) {:class "active"}) [:a {:href "#/record"} "Record"]]
-                   [:li (when (= component-key :app/blog) {:class "active"}) [:a {:href "#/blog"} "Blog"]]
-                   [:li (when (= component-key :app/photo) {:class "active"}) [:a {:href "#/photo"} "Photo"]]
-                   [:li (when (= component-key :app/movie) {:class "active"}) [:a {:href "#/movie"} "Movie"]]
-                   [:li (when (= component-key :app/masumeidai) {:class "active"}) [:a {:href "#/masumeidai"} "舛名大"]]
-                   [:li (when (= component-key :app/media) {:class "active"}) [:a {:href "#/media"} "Media"]]
-                   [:li (when (= component-key :app/link) {:class "active"}) [:a {:href "#/link"} "Link"]]
-                   [:li (when (= component-key :app/mail) {:class "active"}) [:a {:href "#/mail"} "Mail"]]]]]]
+                (navbar {:fixedTop true :collapseOnSelect true :inverse true}
+                  (navbarHeader {}
+                    (navbarBrand {} "名大相撲部")
+                    (navbarToggle {}))
+                  (navbarCollapse {}
+                    (nav {:activeKey component-key}
+                      (navItem {:eventKey :app/home} "Home")
+                      (navItem {:eventKey :app/club} "Club")
+                      (navItem {:eventKey :app/member} "Member")
+                      (navItem {:eventKey :app/record} "Record")
+                      (navItem {:eventKey :app/blog} "Blog")
+                      (navItem {:eventKey :app/photo} "Photo")
+                      (navItem {:eventKey :app/movie} "Movie")
+                      (navItem {:eventKey :app/masumeidai} "舛名大")
+                      (navItem {:eventKey :app/media} "Media")
+                      (navItem {:eventKey :app/link} "Link")
+                      (navItem {:eventKey :app/mail} "Mail"))))
                [:div.row
                 [:div.hidden-xs.col-md-2]
                 [:div.col-xs-12.col-md-8#content
