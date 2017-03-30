@@ -10,6 +10,8 @@
             [ui.view.common :refer [App]])
   (:import goog.History))
 
+(enable-console-print!)
+
 (def api-endpoint (.. js/document
                       (querySelector "meta[name=api-endpoint]")
                       (getAttribute "content")))
@@ -32,6 +34,9 @@
 
 (sec/defroute club "/club" []
   (set-root-query! '[:app/club]))
+
+(sec/defroute club-id "/club/:id" {:keys [id]}
+  (set-root-query! `[(:app/club {:selected ~id})]))
 
 (sec/defroute member "/member" []
   (set-root-query! '[:app/member]))

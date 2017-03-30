@@ -6,16 +6,9 @@
   [env k params]
   (let [st @(:state env)]
     {:value (get-in st [k] {})}))
-(defmethod read :app/member
+(defmethod read :app/club
   [env k params]
   (let [st @(:state env)]
-    (js/console.log (pr-str st))
-    {:remote true
-     :value (get-in st [k])}))
-(defmethod read :app/record
-  [env k params]
-  (let [st @(:state env)]
-    {:remote true
-     :value (get-in st [k])}))
+    {:value (merge (get-in st [k] {}) params)}))
 
 (def app-parser (om/parser {:read read}))

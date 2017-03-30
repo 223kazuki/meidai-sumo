@@ -3,18 +3,7 @@
             [om.dom :as dom]
             [sablono.core :refer-macros [html]]
             [cljsjs.react-bootstrap]
-            [secretary.core :as sec]))
-
-(defn navbar [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Navbar") (clj->js props) children))
-(defn navbarHeader [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Navbar" "Header") (clj->js props) children))
-(defn navbarBrand [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Navbar" "Brand") (clj->js props) children))
-(defn navbarCollapse [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Navbar" "Collapse") (clj->js props) children))
-(defn navbarToggle [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Navbar" "Toggle") (clj->js props) children))
-(defn nav [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Nav") (clj->js props) children))
-(defn navItem [props & children] (apply js/React.createElement (aget js/ReactBootstrap "NavItem") (clj->js props) children))
-(defn navDropdown [props & children] (apply js/React.createElement (aget js/ReactBootstrap "NavDropdown") (clj->js props) children))
-(defn menuItem [props & children] (apply js/React.createElement (aget js/ReactBootstrap "MenuItem") (clj->js props) children))
-(defn jumbotron [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Jumbotron") (clj->js props) children))
+            [ui.view.bootstrap :as b]))
 
 (def menu
   [{:name "Home" :link "#/"}
@@ -72,19 +61,20 @@
                [:div.row
                 [:div.col-xs-12.col-md-6
                  [:div
-                  [:div {:class "inner"}
-                   [:a {:class "twitter-timeline", :data-chrome "nofooter", :href "https://twitter.com/nu_sumo", :data-widget-id "345543580846280704"} "@nu_sumo からのツイート"]]]]
+                  [:a {:class "twitter-timeline", :data-chrome "nofooter", :href "https://twitter.com/nu_sumo", :data-widget-id "345543580846280704"} "@nu_sumo からのツイート"]]]
                 [:div.col-xs-12.col-md-6
                  [:div.fb-page {:data-href "https://www.facebook.com/NUSUMOCLUB/" :data-tabs "timeline" :data-small-header false :data-adapt-container-width true data-hide-cover false data-show-facepile true} [:blockquote.fb-xfbml-parse-ignore {:cite "https://www.facebook.com/NUSUMOCLUB/"} [:a {:href "https://www.facebook.com/NUSUMOCLUB/"} "名古屋大学相撲部"]]]]]]))))
 
 (defui ClubView
   Object
   (render [this]
-          (let [{:keys [abouts] :as props} (om/props this)]
+          (let [{:keys [abouts selected] :as props} (om/props this)]
             (html
               [:div [:h1 "Club"]
-               [:ul
-                (map #(vec [:li {:key (:about/id %)} (:about/title %)]) abouts)]]))))
+               (println selected)
+               (b/tabs {:activeKey (js/parseInt selected) :onSelect (fn [id _] (aset js/window "location" (str "/#/club/" id))) :id (js/parseInt selected)}
+                       (map #(b/tab {:eventKey (:about/id %) :id (:about/id %) :title (:about/title %)}
+                                    (:about/content %)) abouts))]))))
 
 (defui MemberView
   Object
@@ -181,23 +171,23 @@
                 component-key (first (keys props))]
             (html
               [:div.container
-               (navbar {:fixedTop true :inverse true}
-                       (navbarHeader {}
-                                     (navbarBrand {} "名大相撲部")
-                                     (navbarToggle {}))
-                       (navbarCollapse {}
-                                       (nav {:activeKey component-key}
-                                            (navItem {:eventKey :app/home :href "#/"} "Home")
-                                            (navItem {:eventKey :app/club :href "#/club"} "Club")
-                                            (navItem {:eventKey :app/member :href "#/member"} "Member")
-                                            (navItem {:eventKey :app/record :href "#/record"} "Record")
-                                            (navItem {:eventKey :app/blog :href "#/blog"} "Blog")
-                                            (navItem {:eventKey :app/photo :href "#/photo"} "Photo")
-                                            (navItem {:eventKey :app/movie :href "#/movie"} "Movie")
-                                            (navItem {:eventKey :app/masumeidai :href "#/masumeidai"} "舛名大")
-                                            (navItem {:eventKey :app/media :href "#/media"} "Media")
-                                            (navItem {:eventKey :app/link :href "#/link"} "Link")
-                                            (navItem {:eventKey :app/mail :href "#/mail"} "Mail"))))
+               (b/navbar {:fixedTop true :inverse true}
+                         (b/navbarHeader {}
+                                         (b/navbarBrand {} "名大相撲部")
+                                         (b/navbarToggle {}))
+                         (b/navbarCollapse {}
+                                           (b/nav {:activeKey component-key}
+                                                  (b/navItem {:eventKey :app/home :href "#/"} "Home")
+                                                  (b/navItem {:eventKey :app/club :href "#/club"} "Club")
+                                                  (b/navItem {:eventKey :app/member :href "#/member"} "Member")
+                                                  (b/navItem {:eventKey :app/record :href "#/record"} "Record")
+                                                  (b/navItem {:eventKey :app/blog :href "#/blog"} "Blog")
+                                                  (b/navItem {:eventKey :app/photo :href "#/photo"} "Photo")
+                                                  (b/navItem {:eventKey :app/movie :href "#/movie"} "Movie")
+                                                  (b/navItem {:eventKey :app/masumeidai :href "#/masumeidai"} "舛名大")
+                                                  (b/navItem {:eventKey :app/media :href "#/media"} "Media")
+                                                  (b/navItem {:eventKey :app/link :href "#/link"} "Link")
+                                                  (b/navItem {:eventKey :app/mail :href "#/mail"} "Mail"))))
                [:div.row
                 [:div.hidden-xs.col-md-1]
                 [:div.col-xs-12.col-md-10#content
