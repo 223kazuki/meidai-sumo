@@ -1,9 +1,11 @@
-(ns ui.view.common
+(ns ui.view.app
   (:require [om.next :as om :refer-macros [defui]]
-            [om.dom :as dom]
             [sablono.core :refer-macros [html]]
-            [cljsjs.react-bootstrap]
-            [ui.view.bootstrap :as b]))
+            [ui.view.bootstrap :as b]
+            [ui.view.home :refer [HomeView]]
+            [ui.view.club :refer [ClubView]]
+            [ui.view.member :refer [MemberView]]
+            [markdown.core :refer [md->html]]))
 
 (def menu
   [{:name "Home" :link "#/"}
@@ -17,73 +19,6 @@
    {:name "Media" :link "#/media"}
    {:name "Link" :link "#/link"}
    {:name "Mail" :link "#/mail"}])
-
-(defui HomeView
-  Object
-  (componentDidMount [this]
-                     (if (aget js/window "twttr")
-                       (. (aget (aget js/window "twttr") "widgets") load)
-                       (aset js/window "twttr"
-                             ((fn [d s id]
-                                (let [fjs (aget (.getElementsByTagName d s) 0)
-                                      t (or (aget js/window "twttr") (clj->js {}))
-                                      js (.createElement d s)]
-                                  (aset js "id" id)
-                                  (aset js "src" "https://platform.twitter.com/widgets.js")
-                                  (.insertBefore (aget fjs "parentNode") js fjs)
-                                  (aset t "_e" (clj->js []))
-                                  (aset t "ready" (fn [f] (.. t _e (push f))))))
-                              js/document "script" "twitter-wjs")))
-                     (if (aget js/window "facebook")
-                       (. (aget (aget js/window "twttr") "widgets") load)
-                       (aset js/window "facebook"
-                             ((fn [d s id]
-                                (let [fjs (aget (.getElementsByTagName d s) 0)
-                                      t (or (aget js/window "facebook") (clj->js {}))
-                                      js (.createElement d s)]
-                                  (aset js "id" id)
-                                  (aset js "src" "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.8")
-                                  (.insertBefore (aget fjs "parentNode") js fjs)
-                                  (aset t "_e" (clj->js []))
-                                  (aset t "ready" (fn [f] (.. t _e (push f))))))
-                              js/document "script" "facebook-jssdk"))))
-  (render [this]
-          (let [{:keys [] :as props} (om/props this)]
-            (html
-              [:div#home
-               [:div.jumbotron
-                [:h1 "名古屋大学相撲部"]
-                [:p "Nagoya University Sumo Club"]
-                [:p.lead
-                 [:a.btn.btn-primary.btn-lg {:href "https://twitter.com/nu_sumo" :role "button"} "Twitter"]]
-                [:p.lead
-                 [:a.btn.btn-primary.btn-lg {:href "https://www.facebook.com/NUSUMOCLUB/" :role "button"} "Facebook"]]]
-               [:div.row
-                [:div.col-xs-12.col-md-6
-                 [:div
-                  [:a {:class "twitter-timeline", :data-chrome "nofooter", :href "https://twitter.com/nu_sumo", :data-widget-id "345543580846280704"} "@nu_sumo からのツイート"]]]
-                [:div.col-xs-12.col-md-6
-                 [:div.fb-page {:data-href "https://www.facebook.com/NUSUMOCLUB/" :data-tabs "timeline" :data-small-header false :data-adapt-container-width true data-hide-cover false data-show-facepile true} [:blockquote.fb-xfbml-parse-ignore {:cite "https://www.facebook.com/NUSUMOCLUB/"} [:a {:href "https://www.facebook.com/NUSUMOCLUB/"} "名古屋大学相撲部"]]]]]]))))
-
-(defui ClubView
-  Object
-  (render [this]
-          (let [{:keys [abouts selected] :as props} (om/props this)]
-            (html
-              [:div [:h1 "Club"]
-               (println selected)
-               (b/tabs {:activeKey (js/parseInt selected) :onSelect (fn [id _] (aset js/window "location" (str "/#/club/" id))) :id (js/parseInt selected)}
-                       (map #(b/tab {:eventKey (:about/id %) :id (:about/id %) :title (:about/title %)}
-                                    (:about/content %)) abouts))]))))
-
-(defui MemberView
-  Object
-  (render [this]
-          (let [{:keys [members] :as props} (om/props this)]
-            (html
-              [:div [:h1 "Member"]
-               [:ul
-                (map #(vec [:li {:key (:member/id %)} (:member/name %)]) members)]]))))
 
 (defui RecordView
   Object
@@ -178,8 +113,8 @@
                          (b/navbarCollapse {}
                                            (b/nav {:activeKey component-key}
                                                   (b/navItem {:eventKey :app/home :href "#/"} "Home")
-                                                  (b/navItem {:eventKey :app/club :href "#/club"} "Club")
-                                                  (b/navItem {:eventKey :app/member :href "#/member"} "Member")
+                                                  (b/navItem {:eventKey :app/club :href "#/club/declation"} "Club")
+                                                  (b/navItem {:eventKey :app/member :href "#/member/leader/1"} "Member")
                                                   (b/navItem {:eventKey :app/record :href "#/record"} "Record")
                                                   (b/navItem {:eventKey :app/blog :href "#/blog"} "Blog")
                                                   (b/navItem {:eventKey :app/photo :href "#/photo"} "Photo")

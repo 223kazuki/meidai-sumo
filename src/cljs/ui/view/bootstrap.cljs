@@ -12,3 +12,6 @@
 (defn menuItem [props & children] (apply js/React.createElement (aget js/ReactBootstrap "MenuItem") (clj->js props) children))
 (defn tabs [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Tabs") (clj->js props) children))
 (defn tab [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Tab") (clj->js props) children))
+(defn tabContainer [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Tab" "Container") (clj->js props) children))
+(defn tabContent [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Tab" "Content") (clj->js props) children))
+(defn tabPane [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Tab" "Pane") (clj->js props) children))

@@ -16,6 +16,7 @@ body {
       height: 100%; }
       #app div.container .row #content {
         background-color: black;
+        color: #CCC;
         padding: 0;
         margin: 0;
         height: 100%; }
@@ -39,3 +40,6 @@ body {
   width: 100%; }
   #home div.fb-page .span {
     width: 100%; }
+
+img.member {
+  width: 100%; }

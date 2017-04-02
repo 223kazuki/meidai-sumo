@@ -7,7 +7,7 @@
             [ui.util :refer [transit-post]]
             [ui.state :refer [app-state]]
             [ui.parser :refer [app-parser]]
-            [ui.view.common :refer [App]])
+            [ui.view.app :refer [App]])
   (:import goog.History))
 
 (enable-console-print!)
@@ -30,40 +30,37 @@
      (om/set-query! root {:query query}))))
 
 (sec/defroute home "/" []
-  (set-root-query! '[:app/home]))
+              (set-root-query! '[:app/home]))
 
-(sec/defroute club "/club" []
-  (set-root-query! '[:app/club]))
+(sec/defroute club "/club/:id" {:keys [id]}
+              (set-root-query! `[(:app/club {:selected ~id})]))
 
-(sec/defroute club-id "/club/:id" {:keys [id]}
-  (set-root-query! `[(:app/club {:selected ~id})]))
-
-(sec/defroute member "/member" []
-  (set-root-query! '[:app/member]))
+(sec/defroute member "/member/:grade/:id" {:keys [grade id]}
+              (set-root-query! `[(:app/member {:selected {:grade ~grade :id ~id}})]))
 
 (sec/defroute record "/record" []
-  (set-root-query! '[:app/record]))
+              (set-root-query! '[:app/record]))
 
 (sec/defroute blog "/blog" []
-  (set-root-query! '[:app/blog]))
+              (set-root-query! '[:app/blog]))
 
 (sec/defroute photo "/photo" []
-  (set-root-query! '[:app/photo]))
+              (set-root-query! '[:app/photo]))
 
 (sec/defroute movie "/movie" []
-  (set-root-query! '[:app/movie]))
+              (set-root-query! '[:app/movie]))
 
 (sec/defroute masumeidai "/masumeidai" []
-  (set-root-query! '[:app/masumeidai]))
+              (set-root-query! '[:app/masumeidai]))
 
 (sec/defroute media "/media" []
-  (set-root-query! '[:app/media]))
+              (set-root-query! '[:app/media]))
 
 (sec/defroute link "/link" []
-  (set-root-query! '[:app/link]))
+              (set-root-query! '[:app/link]))
 
 (sec/defroute mail "/mail" []
-  (set-root-query! '[:app/mail]))
+              (set-root-query! '[:app/mail]))
 
 (om/add-root! reconciler App (gdom/getElement "app"))
 
@@ -72,6 +69,6 @@
 (let [history (History.)
       navigation EventType/NAVIGATE]
   (goog.events/listen history
-                     navigation
-                     #(-> % .-token sec/dispatch!))
+                      navigation
+                      #(-> % .-token sec/dispatch!))
   (doto history (.setEnabled true)))
