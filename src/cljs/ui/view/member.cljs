@@ -34,8 +34,8 @@
                                                                                      (b/tab {:key id :eventKey id :title (:member/name member)}
                                                                                             (html [:div
                                                                                                    (when-let [image (:member/image member)] [:img.member {:src (str "/img/member/" image)}])
-                                                                                                   (when-let [introduction (:member/introduction1 member)] [:div {:dangerouslySetInnerHTML {:__html (md->html introduction)}}])
-                                                                                                   (when-let [introduction (:member/introduction2 member)] [:div {:dangerouslySetInnerHTML {:__html (md->html introduction)}}])
-                                                                                                   (when-let [introduction (:member/introduction3 member)] [:div {:dangerouslySetInnerHTML {:__html (md->html introduction)}}])]))))
+                                                                                                   (when-let [introduction (:member/introduction1 member)] [:div (map #(vec [:div %]) introduction)])
+                                                                                                   (when-let [introduction (:member/introduction2 member)] [:div (map #(vec [:div %]) introduction)])
+                                                                                                   (when-let [introduction (:member/introduction3 member)] [:div (map #(vec [:div %]) introduction)])]))))
                                                                                  (:grade/members grade)))))
                                                           grades))]]))]))))

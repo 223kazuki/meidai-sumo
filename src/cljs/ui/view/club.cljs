@@ -12,4 +12,4 @@
               [:div [:h1 "Club"]
                (b/tabs {:activeKey selected :onSelect (fn [id _] (aset js/window "location" (str "/#/club/" id))) :id "club"}
                        (map #(b/tab {:key (:about/id %) :eventKey (:about/id %) :title (:about/title %)}
-                                    (html [:div {:dangerouslySetInnerHTML {:__html (md->html (:about/content %))}}])) abouts))]))))
+                                    (html (:about/content %))) abouts))]))))

@@ -38,8 +38,8 @@
 (sec/defroute member "/member/:grade/:id" {:keys [grade id]}
               (set-root-query! `[(:app/member {:selected {:grade ~grade :id ~id}})]))
 
-(sec/defroute record "/record" []
-              (set-root-query! '[:app/record]))
+(sec/defroute record "/record/:year" {:keys [year]}
+              (set-root-query! `[(:app/record {:selected ~year})]))
 
 (sec/defroute blog "/blog" []
               (set-root-query! '[:app/blog]))
