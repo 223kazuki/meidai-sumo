@@ -6,14 +6,8 @@
             [ui.view.club :refer [ClubView]]
             [ui.view.member :refer [MemberView]]
             [ui.view.record :refer [RecordView]]
+            [ui.view.masumeidai :refer [MasumeidaiView]]
             [markdown.core :refer [md->html]]))
-
-(defui BlogView
-  Object
-  (render [this]
-          (let [{:keys [] :as props} (om/props this)]
-            (html
-              [:div [:h1 "Blog"]]))))
 
 (defui PhotoView
   Object
@@ -28,13 +22,6 @@
           (let [{:keys [] :as props} (om/props this)]
             (html
               [:div [:h1 "Movie"]]))))
-
-(defui MasumeidaiView
-  Object
-  (render [this]
-          (let [{:keys [] :as props} (om/props this)]
-            (html
-              [:div [:h1 "Masumeidai"]]))))
 
 (defui MediaView
   Object
@@ -62,7 +49,6 @@
    :app/club ClubView
    :app/member MemberView
    :app/record RecordView
-   :app/blog BlogView
    :app/photo PhotoView
    :app/movie MovieView
    :app/masumeidai MasumeidaiView
@@ -94,12 +80,12 @@
                                                   (b/navItem {:eventKey :app/home :href "#/"} "Home")
                                                   (b/navItem {:eventKey :app/club :href "#/club/declation"} "Club")
                                                   (b/navItem {:eventKey :app/member :href "#/member/leader/1"} "Member")
-                                                  (b/navItem {:eventKey :app/record :href "#/record/2016"} "Record")
-                                                  (b/navItem {:eventKey :app/blog :href "#/blog"} "Blog")
+                                                  (b/navItem {:eventKey :app/record :href "#/record/2011"} "Record")
+                                                  (b/navItem {:eventKey :app/blog :href "http://nus8.blogspot.jp/" :target "_blank"} "Blog")
                                                   (b/navItem {:eventKey :app/photo :href "#/photo"} "Photo")
-                                                  (b/navItem {:eventKey :app/movie :href "#/movie"} "Movie")
+                                                  ;; (b/navItem {:eventKey :app/movie :href "#/movie"} "Movie")
                                                   (b/navItem {:eventKey :app/masumeidai :href "#/masumeidai"} "舛名大")
-                                                  (b/navItem {:eventKey :app/media :href "#/media"} "Media")
+                                                  ;; (b/navItem {:eventKey :app/media :href "#/media"} "Media")
                                                   (b/navItem {:eventKey :app/link :href "#/link"} "Link")
                                                   (b/navItem {:eventKey :app/mail :href "#/mail"} "Mail"))))
                [:div.row

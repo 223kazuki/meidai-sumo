@@ -50,8 +50,8 @@
 (sec/defroute movie "/movie" []
               (set-root-query! '[:app/movie]))
 
-(sec/defroute masumeidai "/masumeidai" []
-              (set-root-query! '[:app/masumeidai]))
+(sec/defroute masumeidai "/masumeidai/:tab" {:keys [tab]}
+              (set-root-query! `[(:app/masumeidai {:selected ~tab})]))
 
 (sec/defroute media "/media" []
               (set-root-query! '[:app/media]))

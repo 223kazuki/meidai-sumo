@@ -625,4 +625,15 @@
                                    [:p "８０キロ未満級　優勝　　　　栗山和之"]
                                    [:p "７５キロ未満級　ベスト８　　吉岡修"]
                                    [:h2 "全国学生相撲選手権大会"]
-                                   [:p "Dクラス　団体戦　第３位"]]}]}})
+                                   [:p "Dクラス　団体戦　第３位"]]}]}
+   :app/masumeidai {}
+   :app/link {:links [{:link/title "名古屋大学体育会" :link/ref ""}
+                      {:link/title "東北大学相撲部" :link/ref ""}
+                      {:link/title "東京大学相撲部" :link/ref ""}
+                      {:link/title "防衛大学校相撲部" :link/ref ""}
+                      {:link/title "京都大学相撲部" :link/ref ""}
+                      {:link/title "大阪大学相撲部" :link/ref ""}
+                      {:link/title "関西学院大学相撲部" :link/ref ""}
+                      {:link/title "広島大学相撲部" :link/ref ""}
+                      {:link/title "九州大学相撲部" :link/ref ""}
+                      {:link/title "國學院大学相撲部" :link/ref ""}]}})
