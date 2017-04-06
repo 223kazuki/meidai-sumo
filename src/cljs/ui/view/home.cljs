@@ -6,32 +6,10 @@
 (defui HomeView
   Object
   (componentDidMount [this]
-                     (if (aget js/window "twttr")
-                       (. (aget (aget js/window "twttr") "widgets") load)
-                       (aset js/window "twttr"
-                             ((fn [d s id]
-                                (let [fjs (aget (.getElementsByTagName d s) 0)
-                                      t (or (aget js/window "twttr") (clj->js {}))
-                                      js (.createElement d s)]
-                                  (aset js "id" id)
-                                  (aset js "src" "https://platform.twitter.com/widgets.js")
-                                  (.insertBefore (aget fjs "parentNode") js fjs)
-                                  (aset t "_e" (clj->js []))
-                                  (aset t "ready" (fn [f] (.. t _e (push f))))))
-                              js/document "script" "twitter-wjs")))
-                     (if (aget js/window "facebook")
-                       (. (aget (aget js/window "twttr") "widgets") load)
-                       (aset js/window "facebook"
-                             ((fn [d s id]
-                                (let [fjs (aget (.getElementsByTagName d s) 0)
-                                      t (or (aget js/window "facebook") (clj->js {}))
-                                      js (.createElement d s)]
-                                  (aset js "id" id)
-                                  (aset js "src" "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.8")
-                                  (.insertBefore (aget fjs "parentNode") js fjs)
-                                  (aset t "_e" (clj->js []))
-                                  (aset t "ready" (fn [f] (.. t _e (push f))))))
-                              js/document "script" "facebook-jssdk"))))
+                     (when (aget js/window "twttr")
+                       (. (aget (aget js/window "twttr") "widgets") load))
+                     (when (aget js/window "facebook")
+                       (.parse (aget js/FB "XFBML"))))
   (render [this]
           (let [{:keys [] :as props} (om/props this)]
             (html

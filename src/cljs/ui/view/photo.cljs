@@ -8,6 +8,7 @@
 (defui PhotoView
   Object
   (componentDidMount [this]
+                     (println "test")
                      (js/eval
                        "var initPhotoSwipeFromDOM = function( gallerySelector ) {
                        var parseThumbnailElements = function(el) {
@@ -169,9 +170,18 @@
               [:div#photo [:h1 "Photo"]
                [:div.my-gallery
                 [:div.raw
-                 (map #(vec [:div.col-xs-6.col-md-3
+                 (map #(vec [:div.col-xs-6.col-md-3 {:key (:photo/id %)}
                              [:figure
-                              [:a {:href "/img/member/nagou.jpg"}
-                               [:img {:src "/img/member/nagou.jpg" :alt "nagou"}]]
-                              [:figcaption "nagou"]]])
-                      [{} {} {} {} {} {} {} {} {} {} {} ])]]]))))
+                              [:a {:href (:photo/href %) :data-size "800x600"}
+                               [:img {:src (:photo/href %) :alt (:photo/caption %)}]]
+                              [:figcaption (:photo/caption %)]]])
+                      [{:photo/id 1 :photo/caption "nagou" :photo/href "/img/member/nagou.jpg"}
+                       {:photo/id 2 :photo/caption "nagou" :photo/href "/img/member/nagou.jpg"}
+                       {:photo/id 3 :photo/caption "nagou" :photo/href "/img/member/nagou.jpg"}
+                       {:photo/id 4 :photo/caption "nagou" :photo/href "/img/member/nagou.jpg"}
+                       {:photo/id 5 :photo/caption "nagou" :photo/href "/img/member/nagou.jpg"}
+                       {:photo/id 6 :photo/caption "nagou" :photo/href "/img/member/nagou.jpg"}
+                       {:photo/id 7 :photo/caption "nagou" :photo/href "/img/member/nagou.jpg"}
+                       {:photo/id 8 :photo/caption "nagou" :photo/href "/img/member/nagou.jpg"}
+                       {:photo/id 9 :photo/caption "nagou" :photo/href "/img/member/nagou.jpg"}
+                       {:photo/id 10 :photo/caption "nagou" :photo/href "/img/member/nagou.jpg"}])]]]))))

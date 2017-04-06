@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="robots" content="index">
-    <meta name="keywords" content="名古屋大学, 名大, 名古屋大学体育会相撲部, 名古屋大学相撲部, 名大相撲部, 相撲部, 相撲, 舛名大, 桝名大, 枡名大, 升名大, 桝名大, どすこい名古屋城RAVE, どすこい名古屋城レイブ, どすこい名古屋城レイヴ, " />
+    <meta name="keywords" content="名古屋大学, 名大, 名古屋大学体育会相撲部, 名古屋大学相撲部, 名大相撲部, 相撲部, 相撲, 舛名大, 桝名大, 枡名大, 升名大, 桝名大, どすこい名古屋城RAVE, どすこい名古屋城レイブ, どすこい名古屋城レイヴ, 大須, 大須相撲大会, 静内, 紋別, 静内合宿, 紋別合宿, 七帝戦, 名阪戦, 体育会" />
     <title>名大相撲部</title>
     <meta name="description" content="名古屋大学体育会相撲部のホームページです。" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -63,15 +63,40 @@
         </div>
       </div>
     </div>
+    <script src="/main.js"></script>
     <!-- Google Analytics -->
     <script>
-      /*     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-62234251-1', 'auto');
-    ga('send', 'pageview'); */
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-62234251-1', 'auto');
+      ga('send', 'pageview');
     </script>
-    <script src="/main.js"></script>
+    <script>
+      window.twttr = (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],  t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s); js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+        t._e = []; t.ready = function(f) {
+          t._e.push(f);
+        };
+        return t;
+      }(document, "script", "twitter-wjs"));
+    </script>
+    <div id="fb-root"></div>
+    <script>
+      window.facebook = (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.async=true;
+        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.6&appId=";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
   </body>
 </html>
