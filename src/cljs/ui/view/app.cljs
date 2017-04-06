@@ -7,15 +7,9 @@
             [ui.view.member :refer [MemberView]]
             [ui.view.record :refer [RecordView]]
             [ui.view.masumeidai :refer [MasumeidaiView]]
+            [ui.view.photo :refer [PhotoView]]
             [ui.view.link :refer [LinkView]]
             [ui.view.mail :refer [MailView]]))
-
-(defui PhotoView
-  Object
-  (render [this]
-          (let [{:keys [] :as props} (om/props this)]
-            (html
-              [:div [:h1 "Photo"]]))))
 
 (defui MovieView
   Object
