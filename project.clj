@@ -15,7 +15,6 @@
                  [sablono "0.7.7"]
                  [cljsjs/react-bootstrap "0.30.7-0"]
                  [secretary "1.2.3"]
-                 [markdown-clj "0.9.98"]]
 
   :plugins [[lein-cljsbuild "1.1.4"]
             [lein-figwheel "0.5.4-7"]

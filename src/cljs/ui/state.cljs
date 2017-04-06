@@ -627,13 +627,13 @@
                                    [:h2 "全国学生相撲選手権大会"]
                                    [:p "Dクラス　団体戦　第３位"]]}]}
    :app/masumeidai {}
-   :app/link {:links [{:link/title "名古屋大学体育会" :link/ref ""}
-                      {:link/title "東北大学相撲部" :link/ref ""}
-                      {:link/title "東京大学相撲部" :link/ref ""}
-                      {:link/title "防衛大学校相撲部" :link/ref ""}
-                      {:link/title "京都大学相撲部" :link/ref ""}
-                      {:link/title "大阪大学相撲部" :link/ref ""}
-                      {:link/title "関西学院大学相撲部" :link/ref ""}
-                      {:link/title "広島大学相撲部" :link/ref ""}
-                      {:link/title "九州大学相撲部" :link/ref ""}
-                      {:link/title "國學院大学相撲部" :link/ref ""}]}})
+   :app/link {:links [{:link/title "名古屋大学体育会" :link/ref "http://nuaa.web.fc2.com/"}
+                      {:link/title "東北大学相撲部" :link/ref "http://www.geocities.jp/dongbei_sumoclub/"}
+                      {:link/title "東京大学相撲部" :link/ref "http://dosukoi.net/todai/"}
+                      {:link/title "防衛大学校相撲部" :link/ref "http://www.nda.ac.jp/ed/sumou/"}
+                      {:link/title "京都大学相撲部" :link/ref "http://www.geocities.jp/kyodaisumo/"}
+                      {:link/title "大阪大学相撲部" :link/ref "http://handaisumo.blog.fc2.com/"}
+                      {:link/title "関西学院大学相撲部" :link/ref "http://blog.livedoor.jp/kwangakusumo/"}
+                      {:link/title "広島大学相撲部" :link/ref "https://twitter.com/hirodaisumou"}
+                      {:link/title "九州大学相撲部" :link/ref "https://twitter.com/qdaisumo"}
+                      {:link/title "國學院大学相撲部" :link/ref "https://twitter.com/kokugakuin_sumo"}]}})

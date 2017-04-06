@@ -2,8 +2,7 @@
   (:require [om.next :as om :refer-macros [defui]]
             [sablono.core :refer-macros [html]]
             [cljsjs.react-bootstrap]
-            [ui.view.bootstrap :as b]
-            [markdown.core :refer [md->html]]))
+            [ui.view.bootstrap :as b]))
 
 (defui MemberView
   Object

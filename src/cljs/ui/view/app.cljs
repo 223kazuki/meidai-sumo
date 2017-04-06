@@ -7,7 +7,8 @@
             [ui.view.member :refer [MemberView]]
             [ui.view.record :refer [RecordView]]
             [ui.view.masumeidai :refer [MasumeidaiView]]
-            [markdown.core :refer [md->html]]))
+            [ui.view.link :refer [LinkView]]
+            [ui.view.mail :refer [MailView]]))
 
 (defui PhotoView
   Object
@@ -29,20 +30,6 @@
           (let [{:keys [] :as props} (om/props this)]
             (html
               [:div [:h1 "Media"]]))))
-
-(defui LinkView
-  Object
-  (render [this]
-          (let [{:keys [] :as props} (om/props this)]
-            (html
-              [:div [:h1 "Link"]]))))
-
-(defui MailView
-  Object
-  (render [this]
-          (let [{:keys [] :as props} (om/props this)]
-            (html
-              [:div [:h1 "Mail"]]))))
 
 (def query-key->view
   {:app/home HomeView
@@ -84,7 +71,7 @@
                                                   (b/navItem {:eventKey :app/blog :href "http://nus8.blogspot.jp/" :target "_blank"} "Blog")
                                                   (b/navItem {:eventKey :app/photo :href "#/photo"} "Photo")
                                                   ;; (b/navItem {:eventKey :app/movie :href "#/movie"} "Movie")
-                                                  (b/navItem {:eventKey :app/masumeidai :href "#/masumeidai"} "舛名大")
+                                                  (b/navItem {:eventKey :app/masumeidai :href "#/masumeidai/profile"} "舛名大")
                                                   ;; (b/navItem {:eventKey :app/media :href "#/media"} "Media")
                                                   (b/navItem {:eventKey :app/link :href "#/link"} "Link")
                                                   (b/navItem {:eventKey :app/mail :href "#/mail"} "Mail"))))
