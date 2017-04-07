@@ -8,6 +8,7 @@
   (render [this]
           (let [{:keys [links] :as props} (om/props this)]
             (html
-              [:div [:h1 "Link"
+              [:div#link
+               [:h1 "Link"
                      [:ul
                       (map #(vec [:li {:key (:link/title %)} [:a {:href (:link/ref %) :target "_blank"} (:link/title %)]]) links)]]]))))

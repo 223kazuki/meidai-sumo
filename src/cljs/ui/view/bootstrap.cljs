@@ -15,3 +15,8 @@
 (defn tabContainer [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Tab" "Container") (clj->js props) children))
 (defn tabContent [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Tab" "Content") (clj->js props) children))
 (defn tabPane [props & children] (apply js/React.createElement (aget js/ReactBootstrap "Tab" "Pane") (clj->js props) children))
+(defn formGroup [props & children] (apply js/React.createElement (aget js/ReactBootstrap "FormGroup") (clj->js props) children))
+(defn controlLabel [props & children] (apply js/React.createElement (aget js/ReactBootstrap "ControlLabel") (clj->js props) children))
+(defn formControl [props & children] (apply js/React.createElement (aget js/ReactBootstrap "FormControl") (clj->js props) children))
+(defn formControlFeedback [props & children] (apply js/React.createElement (aget js/ReactBootstrap "FormControl ""Feedback") (clj->js props) children))
+(defn helpBlock [props & children] (apply js/React.createElement (aget js/ReactBootstrap "HelpBlock") (clj->js props) children))

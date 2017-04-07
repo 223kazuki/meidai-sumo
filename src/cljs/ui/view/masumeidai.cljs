@@ -8,7 +8,8 @@
   (render [this]
           (let [{:keys [selected] :as props} (om/props this)]
             (html
-              [:div [:h1 "Masumeidai"]
+              [:div#masumeidai
+               [:h1 "Masumeidai"]
                (b/tabs {:activeKey selected :onSelect (fn [tab _] (aset js/window "location" (str "/#/masumeidai/" tab))) :id "masumeidai"}
                        (b/tab {:key "profile" :eventKey "profile" :title "プロフィール"}
                               (html [:div

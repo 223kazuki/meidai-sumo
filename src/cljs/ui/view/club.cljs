@@ -8,7 +8,8 @@
   (render [this]
           (let [{:keys [abouts selected] :as props} (om/props this)]
             (html
-              [:div [:h1 "Club"]
+              [:div#club
+               [:h1 "Club"]
                (b/tabs {:activeKey selected :onSelect (fn [id _] (aset js/window "location" (str "/#/club/" id))) :id "club"}
                        (map #(b/tab {:key (:about/id %) :eventKey (:about/id %) :title (:about/title %)}
                                     (html (:about/content %))) abouts))]))))

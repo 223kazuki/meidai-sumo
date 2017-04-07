@@ -8,7 +8,6 @@
 (defui PhotoView
   Object
   (componentDidMount [this]
-                     (println "test")
                      (js/eval
                        "var initPhotoSwipeFromDOM = function( gallerySelector ) {
                        var parseThumbnailElements = function(el) {
@@ -167,7 +166,8 @@
   (render [this]
           (let [{:keys [] :as props} (om/props this)]
             (html
-              [:div#photo [:h1 "Photo"]
+              [:div#photo
+               [:h1 "Photo"]
                [:div.my-gallery
                 [:div.raw
                  (map #(vec [:div.col-xs-6.col-md-3 {:key (:photo/id %)}
