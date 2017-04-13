@@ -16,11 +16,7 @@
               [:div#home
                [:div.jumbotron
                 [:h1 "名古屋大学相撲部"]
-                [:p "Nagoya University Sumo Club"]
-                [:p.lead
-                 [:a.btn.btn-primary.btn-lg {:href "https://twitter.com/nu_sumo" :role "button"} "Twitter"]]
-                [:p.lead
-                 [:a.btn.btn-primary.btn-lg {:href "https://www.facebook.com/NUSUMOCLUB/" :role "button"} "Facebook"]]]
+                [:p "Nagoya University Sumo Club"]]
                [:div.row
                 [:div.col-xs-12.col-md-6
                  [:div

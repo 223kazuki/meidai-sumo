@@ -72,8 +72,8 @@
                [:div.row
                 [:div.hidden-xs.col-md-1]
                 [:div.col-xs-12.col-md-10#content
-                 (build-component props)
-                 [:footer
-                  [:small "Copyright 2017-2022 Nagoya University Sumo Club. All Rights Reserved."]]]
+                 (build-component props)]
                 [:div.hidden-xs.col-md-1]]
-               [:div#fb-root]]))))
+               [:div#fb-root]
+               [:footer
+                [:small "Copyright 2017-2022 Nagoya University Sumo Club. All Rights Reserved."]]]))))
